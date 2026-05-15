@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Pembayaran Jahitan</title>
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:#eef2f7;
+      max-width:500px;
+      margin:auto;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    /* =========================
+    HEADER
+    ========================= */
+
+    .header{
+      background:linear-gradient(
+        135deg,
+        #0f9d58,
+        #0b7d45
+      );
+
+      color:white;
+      padding:25px 20px;
+      border-radius:25px;
+      margin-bottom:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .header h1{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      opacity:0.9;
+      font-size:14px;
+    }
+
+    /* =========================
+    CARD
+    ========================= */
+
+    .card{
+      background:white;
+      padding:18px;
+      border-radius:20px;
+      margin-bottom:18px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.06);
+    }
+
+    .title{
+      font-size:16px;
+      font-weight:bold;
+      margin-bottom:15px;
+      color:#222;
+    }
+
+    /* =========================
+    INPUT
+    ========================= */
+
+    input,
+    textarea,
+    button{
+      width:100%;
+      border:none;
+      outline:none;
+      padding:14px;
+      border-radius:14px;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+
+    input,
+    textarea{
+      background:#f4f6f9;
+      border:1px solid #ddd;
+    }
+
+    textarea{
+      resize:none;
+      height:90px;
+    }
+
+    /* =========================
+    BUTTON
+    ========================= */
+
+    .btn-simpan{
+      background:linear-gradient(
+        135deg,
+        #0f9d58,
+        #0b7d45
+      );
+
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .btn-simpan:hover{
+      transform:scale(0.98);
+    }
+
+    /* =========================
+    SEARCH
+    ========================= */
+
+    .search-box{
+      position:relative;
+    }
+
+    .search-box i{
+      position:absolute;
+      top:15px;
+      left:15px;
+      color:#777;
+    }
+
+    .search-box input{
+      padding-left:45px;
+    }
+
+    /* =========================
+    ITEM PEMBAYARAN
+    ========================= */
+
+    .item{
+      background:white;
+      border-left:6px solid #0f9d58;
+      padding:16px;
+      border-radius:18px;
+      margin-bottom:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .item p{
+      margin-bottom:8px;
+      color:#333;
+      font-size:14px;
+    }
+
+    .status{
+      display:inline-block;
+      background:#e8f5e9;
+      color:#0f9d58;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    .harga{
+      font-size:18px;
+      font-weight:bold;
+      color:#0f9d58;
+      margin-top:10px;
+    }
+
+    /* =========================
+    BUTTON AKSI
+    ========================= */
+
+    .aksi{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+
+    .aksi button{
+      margin:0;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .edit{
+      background:orange;
+    }
+
+    .hapus{
+      background:#111;
+    }
+
+    /* =========================
+    KOSONG
+    ========================= */
+
+    .kosong{
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      color:#777;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .kosong i{
+      font-size:40px;
+      margin-bottom:10px;
+      color:#bbb;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+  HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <h1>
+      <i class="fa-solid fa-wallet"></i>
+      Pembayaran
+    </h1>
+
+    <p>
+      Kelola pembayaran pelanggan jahitan
+    </p>
+
+  </div>
+
+  <!-- =========================
+  FORM PEMBAYARAN
+  ========================= -->
+
+  <div class="card">
+
+    <div class="title">
+      Tambah Pembayaran
+    </div>
+
+    <input
+      type="hidden"
+      id="editIndex">
+
+    <input
+      type="date"
+      id="tanggalBayar">
+
+    <input
+      type="text"
+      id="namaBayar"
+      placeholder="Nama pelanggan">
+
+    <input
+      type="number"
+      id="jumlahBayar"
+      placeholder="Jumlah pembayaran">
+
+    <textarea
+      id="ketBayar"
+      placeholder="Keterangan pembayaran"></textarea>
+
+    <button
+      class="btn-simpan"
+      onclick="simpanPembayaran()">
+
+      <i class="fa-solid fa-floppy-disk"></i>
+      Simpan Pembayaran
+
+    </button>
+
+  </div>
+
+  <!-- =========================
+  SEARCH
+  ========================= -->
+
+  <div class="card">
+
+    <div class="title">
+      Cari Pelanggan
+    </div>
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        id="cariNama"
+        placeholder="Cari nama pelanggan..."
+        onkeyup="tampilkanPembayaran()">
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+  LIST PEMBAYARAN
+  ========================= -->
+
+  <div id="listBayar"></div>
+
+  <script>
+
+    // =========================
+    // DATA
+    // =========================
+
+    let pembayaran =
+      JSON.parse(
+        localStorage.getItem("pembayaran")
+      ) || [];
+
+    let orderan =
+      JSON.parse(
+        localStorage.getItem("orderan")
+      ) || [];
+
+    tampilkanPembayaran();
+
+    // =========================
+    // SIMPAN PEMBAYARAN
+    // =========================
+
+    function simpanPembayaran(){
+
+      let tanggal =
+        document.getElementById("tanggalBayar").value;
+
+      let nama =
+        document.getElementById("namaBayar").value;
+
+      let jumlah =
+        document.getElementById("jumlahBayar").value;
+
+      let ket =
+        document.getElementById("ketBayar").value;
+
+      let editIndex =
+        document.getElementById("editIndex").value;
+
+      if(
+        tanggal == ""
+        ||
+        nama == ""
+        ||
+        jumlah == ""
+      ){
+
+        alert("Isi data terlebih dahulu");
+
+        return;
+      }
+
+      let data = {
+        tanggal,
+        nama,
+        jumlah,
+        ket
+      };
+
+      // =========================
+      // EDIT
+      // =========================
+
+      if(editIndex !== ""){
+
+        pembayaran[editIndex] = data;
+
+      }else{
+
+        // TAMBAH
+
+        pembayaran.push(data);
+      }
+
+      // =========================
+      // UPDATE STATUS ORDER
+      // =========================
+
+      orderan.forEach((item)=>{
+
+        if(item.nama == nama){
+
+          item.status = "sudah bayar";
+        }
+      });
+
+      // =========================
+      // SIMPAN
+      // =========================
+
+      localStorage.setItem(
+        "pembayaran",
+        JSON.stringify(pembayaran)
+      );
+
+      localStorage.setItem(
+        "orderan",
+        JSON.stringify(orderan)
+      );
+
+      resetForm();
+
+      tampilkanPembayaran();
+
+      alert("Pembayaran berhasil disimpan");
+    }
+
+    // =========================
+    // TAMPILKAN PEMBAYARAN
+    // =========================
+
+    function tampilkanPembayaran(){
+
+      let list =
+        document.getElementById("listBayar");
+
+      let keyword =
+        document.getElementById("cariNama")
+        .value
+        .toLowerCase();
+
+      list.innerHTML = "";
+
+      let adaData = false;
+
+      pembayaran.forEach((item,index)=>{
+
+        let cocok =
+          item.nama
+          .toLowerCase()
+          .includes(keyword);
+
+        if(cocok){
+
+          adaData = true;
+
+          list.innerHTML += `
+
+            <div class="item">
+
+              <p>
+                <b>📅 Tanggal:</b>
+                ${item.tanggal}
+              </p>
+
+              <p>
+                <b>👤 Nama:</b>
+                ${item.nama}
+              </p>
+
+              <p>
+                <b>🧾 Keterangan:</b>
+                ${item.ket}
+              </p>
+
+              <div class="harga">
+
+                Rp ${Number(item.jumlah)
+                .toLocaleString("id-ID")}
+
+              </div>
+
+              <div class="status">
+
+                Sudah Dibayar
+
+              </div>
+
+              <div class="aksi">
+
+                <button
+                  class="edit"
+                  onclick="editPembayaran(${index})">
+
+                  Edit
+
+                </button>
+
+                <button
+                  class="hapus"
+                  onclick="hapusPembayaran(${index})">
+
+                  Hapus
+
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+        }
+
+      });
+
+      // =========================
+      // DATA KOSONG
+      // =========================
+
+      if(!adaData){
+
+        list.innerHTML = `
+
+          <div class="kosong">
+
+            <i class="fa-regular fa-folder-open"></i>
+
+            <p>
+              Data pembayaran tidak ditemukan
+            </p>
+
+          </div>
+
+        `;
+      }
+    }
+
+    // =========================
+    // EDIT PEMBAYARAN
+    // =========================
+
+    function editPembayaran(index){
+
+      let item = pembayaran[index];
+
+      document.getElementById("tanggalBayar").value =
+        item.tanggal;
+
+      document.getElementById("namaBayar").value =
+        item.nama;
+
+      document.getElementById("jumlahBayar").value =
+        item.jumlah;
+
+      document.getElementById("ketBayar").value =
+        item.ket;
+
+      document.getElementById("editIndex").value =
+        index;
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+    }
+
+    // =========================
+    // HAPUS PEMBAYARAN
+    // =========================
+
+    function hapusPembayaran(index){
+
+      let yakin =
+        confirm(
+          "Yakin ingin menghapus pembayaran?"
+        );
+
+      if(yakin){
+
+        let nama =
+          pembayaran[index].nama;
+
+        pembayaran.splice(index,1);
+
+        // UPDATE STATUS
+
+        let masihAdaPembayaran =
+          pembayaran.some(
+            (item)=> item.nama == nama
+          );
+
+        if(!masihAdaPembayaran){
+
+          orderan.forEach((item)=>{
+
+            if(item.nama == nama){
+
+              item.status = "belum bayar";
+            }
+          });
+        }
+
+        localStorage.setItem(
+          "pembayaran",
+          JSON.stringify(pembayaran)
+        );
+
+        localStorage.setItem(
+          "orderan",
+          JSON.stringify(orderan)
+        );
+
+        tampilkanPembayaran();
+      }
+    }
+
+    // =========================
+    // RESET FORM
+    // =========================
+
+    function resetForm(){
+
+      document.getElementById("tanggalBayar").value = "";
+
+      document.getElementById("namaBayar").value = "";
+
+      document.getElementById("jumlahBayar").value = "";
+
+      document.getElementById("ketBayar").value = "";
+
+      document.getElementById("editIndex").value = "";
+    }
+
+  </script>
+
+</body>
+</html>

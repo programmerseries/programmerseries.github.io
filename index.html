@@ -1,0 +1,462 @@
+<!-- =========================
+VERSI MODERN index.html
+DESAIN LEBIH PROFESIONAL
+========================= -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>POS Jahitan</title>
+
+  <!-- ICON -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f6f9;
+      max-width:500px;
+      margin:auto;
+      min-height:100vh;
+      padding:20px 15px 30px;
+    }
+
+    /* =========================
+    HEADER
+    ========================= */
+
+    .header{
+      background:linear-gradient(
+        135deg,
+        #111,
+        #333
+      );
+
+      border-radius:25px;
+
+      padding:30px 20px;
+
+      color:white;
+
+      margin-bottom:25px;
+
+      box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .header h1{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      color:#ddd;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    /* =========================
+    INFO BOX
+    ========================= */
+
+    .info-box{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:25px;
+    }
+
+    .info{
+      background:white;
+      padding:18px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .info i{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111;
+    }
+
+    .info h2{
+      font-size:22px;
+      margin-bottom:5px;
+    }
+
+    .info p{
+      font-size:13px;
+      color:#777;
+    }
+
+    /* =========================
+    MENU
+    ========================= */
+
+    .judul-menu{
+      margin-bottom:15px;
+      font-size:18px;
+      font-weight:bold;
+      color:#111;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      padding:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+      transition:0.2s;
+    }
+
+    .card:hover{
+      transform:scale(1.02);
+    }
+
+    .left{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .icon{
+      width:55px;
+      height:55px;
+      border-radius:15px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:22px;
+      color:white;
+    }
+
+    .icon-order{
+      background:#111;
+    }
+
+    .icon-bayar{
+      background:green;
+    }
+
+    .icon-riwayat{
+      background:#2196f3;
+    }
+
+    .icon-belum{
+      background:#e53935;
+    }
+
+    .icon-sudah{
+      background:#4caf50;
+    }
+
+    .text h3{
+      color:#111;
+      font-size:16px;
+      margin-bottom:4px;
+    }
+
+    .text p{
+      color:#777;
+      font-size:13px;
+    }
+
+    .arrow{
+      color:#999;
+      font-size:18px;
+    }
+
+    /* =========================
+    FOOTER
+    ========================= */
+
+    .footer{
+      text-align:center;
+      margin-top:30px;
+      font-size:13px;
+      color:#888;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+  HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <h1>POS Jahitan</h1>
+
+    <p>
+      Aplikasi pencatatan order jahitan,
+      pembayaran dan transaksi usaha.
+    </p>
+
+  </div>
+
+  <!-- =========================
+  INFO BOX
+  ========================= -->
+
+  <div class="info-box">
+
+    <div class="info">
+      <i class="fa-solid fa-scissors"></i>
+      <h2>POS</h2>
+      <p>Jahitan</p>
+    </div>
+
+    <div class="info">
+      <i class="fa-solid fa-mobile-screen"></i>
+      <h2>Mobile</h2>
+      <p>Friendly</p>
+    </div>
+
+  </div>
+
+  <!-- =========================
+  MENU
+  ========================= -->
+
+  <div class="judul-menu">
+    Menu Utama
+  </div>
+
+  <div class="menu">
+
+    <!-- ORDER -->
+
+    <a href="order.html">
+
+      <div class="card">
+
+        <div class="left">
+
+          <div class="icon icon-order">
+            <i class="fa-solid fa-clipboard-list"></i>
+          </div>
+
+          <div class="text">
+
+            <h3>Halaman Orderan</h3>
+
+            <p>
+              Tambah dan kelola order jahitan
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+      </div>
+
+    </a>
+
+    <!-- PEMBAYARAN -->
+
+    <a href="pembayaran.html">
+
+      <div class="card">
+
+        <div class="left">
+
+          <div class="icon icon-bayar">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+
+          <div class="text">
+
+            <h3>Halaman Pembayaran</h3>
+
+            <p>
+              Kelola pembayaran pelanggan
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+      </div>
+
+    </a>
+
+    <!-- RIWAYAT -->
+
+    <a href="riwayat.html">
+
+      <div class="card">
+
+        <div class="left">
+
+          <div class="icon icon-riwayat">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+
+          <div class="text">
+
+            <h3>Riwayat Transaksi</h3>
+
+            <p>
+              Lihat semua transaksi jahitan
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+      </div>
+
+    </a>
+
+    <!-- BELUM BAYAR -->
+
+    <a href="belum-bayar.html">
+
+      <div class="card">
+
+        <div class="left">
+
+          <div class="icon icon-belum">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+
+          <div class="text">
+
+            <h3>Belum Dibayar</h3>
+
+            <p>
+              Daftar pelanggan belum bayar
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+      </div>
+
+    </a>
+
+    <!-- SUDAH BAYAR -->
+
+    <a href="sudah-bayar.html">
+
+      <div class="card">
+
+        <div class="left">
+
+          <div class="icon icon-sudah">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+
+          <div class="text">
+
+            <h3>Sudah Dibayar</h3>
+
+            <p>
+              Daftar pelanggan sudah bayar
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+      </div>
+
+    </a>
+
+  </div>
+  <button onclick="logout()"
+style="
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:red;
+color:white;
+font-size:16px;
+font-weight:bold;
+margin-top:15px;
+">
+
+Logout
+
+</button>
+
+  <!-- =========================
+  FOOTER
+  ========================= -->
+
+  <div class="footer">
+    POS Jahitan © 2026
+  </div>
+  <script>
+
+  // =========================
+  // PROTEKSI LOGIN
+  // =========================
+
+  if(localStorage.getItem("login") != "true"){
+
+    window.location.href = "login.html";
+  }
+  
+  function logout(){
+
+  localStorage.removeItem("login");
+
+  window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>

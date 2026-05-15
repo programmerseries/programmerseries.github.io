@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Riwayat Transaksi</title>
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:#eef2f7;
+      max-width:500px;
+      margin:auto;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    /* =========================
+    HEADER
+    ========================= */
+
+    .header{
+      background:linear-gradient(
+        135deg,
+        #111,
+        #2c3e50
+      );
+
+      color:white;
+      padding:25px 20px;
+      border-radius:25px;
+      margin-bottom:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .header h1{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      font-size:14px;
+      opacity:0.85;
+    }
+
+    /* =========================
+    SECTION
+    ========================= */
+
+    .section{
+      margin-bottom:25px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:15px;
+      font-size:18px;
+      font-weight:bold;
+      color:#222;
+    }
+
+    /* =========================
+    ITEM CARD
+    ========================= */
+
+    .item{
+      background:white;
+      padding:16px;
+      border-radius:18px;
+      margin-bottom:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.06);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .item::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:6px;
+      height:100%;
+    }
+
+    .belum::before{
+      background:#e53935;
+    }
+
+    .sudah::before{
+      background:#0f9d58;
+    }
+
+    .item p{
+      margin-bottom:8px;
+      color:#333;
+      font-size:14px;
+    }
+
+    /* =========================
+    STATUS
+    ========================= */
+
+    .status{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    .status-belum{
+      background:#ffebee;
+      color:#e53935;
+    }
+
+    .status-sudah{
+      background:#e8f5e9;
+      color:#0f9d58;
+    }
+
+    /* =========================
+    KOSONG
+    ========================= */
+
+    .kosong{
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      color:#777;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .kosong i{
+      font-size:40px;
+      color:#bbb;
+      margin-bottom:10px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+  HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <h1>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      Riwayat Transaksi
+    </h1>
+
+    <p>
+      Semua data order dan pembayaran pelanggan
+    </p>
+
+  </div>
+
+  <!-- =========================
+  BELUM DIBAYAR
+  ========================= -->
+
+  <div class="section">
+
+    <div class="section-title">
+
+      <i
+      class="fa-solid fa-circle-exclamation"
+      style="color:#e53935;"></i>
+
+      Belum Dibayar
+
+    </div>
+
+    <div id="belumBayar"></div>
+
+  </div>
+
+  <!-- =========================
+  SUDAH DIBAYAR
+  ========================= -->
+
+  <div class="section">
+
+    <div class="section-title">
+
+      <i
+      class="fa-solid fa-circle-check"
+      style="color:#0f9d58;"></i>
+
+      Sudah Dibayar
+
+    </div>
+
+    <div id="sudahBayar"></div>
+
+  </div>
+
+  <script>
+
+    // =========================
+    // AMBIL DATA
+    // =========================
+
+    let orderan =
+      JSON.parse(
+        localStorage.getItem("orderan")
+      ) || [];
+
+    let belumBayar =
+      document.getElementById("belumBayar");
+
+    let sudahBayar =
+      document.getElementById("sudahBayar");
+
+    let adaBelumBayar = false;
+    let adaSudahBayar = false;
+
+    // =========================
+    // LOOP DATA
+    // =========================
+
+    orderan.forEach((item)=>{
+
+      // =========================
+      // BELUM BAYAR
+      // =========================
+
+      if(item.status == "belum bayar"){
+
+        adaBelumBayar = true;
+
+        belumBayar.innerHTML += `
+
+          <div class="item belum">
+
+            <p>
+              <b>📅 Tanggal:</b>
+              ${item.tanggal}
+            </p>
+
+            <p>
+              <b>👤 Nama:</b>
+              ${item.nama}
+            </p>
+
+            <p>
+              <b>🧵 Keterangan:</b>
+              ${item.keterangan}
+            </p>
+
+            <div class="status status-belum">
+
+              Belum Dibayar
+
+            </div>
+
+          </div>
+
+        `;
+      }
+
+      // =========================
+      // SUDAH BAYAR
+      // =========================
+
+      if(item.status == "sudah bayar"){
+
+        adaSudahBayar = true;
+
+        sudahBayar.innerHTML += `
+
+          <div class="item sudah">
+
+            <p>
+              <b>📅 Tanggal:</b>
+              ${item.tanggal}
+            </p>
+
+            <p>
+              <b>👤 Nama:</b>
+              ${item.nama}
+            </p>
+
+            <p>
+              <b>🧵 Keterangan:</b>
+              ${item.keterangan}
+            </p>
+
+            <div class="status status-sudah">
+
+              Sudah Dibayar
+
+            </div>
+
+          </div>
+
+        `;
+      }
+
+    });
+
+    // =========================
+    // JIKA KOSONG
+    // =========================
+
+    if(!adaBelumBayar){
+
+      belumBayar.innerHTML = `
+
+        <div class="kosong">
+
+          <i class="fa-regular fa-folder-open"></i>
+
+          <p>
+            Tidak ada transaksi belum dibayar
+          </p>
+
+        </div>
+
+      `;
+    }
+
+    if(!adaSudahBayar){
+
+      sudahBayar.innerHTML = `
+
+        <div class="kosong">
+
+          <i class="fa-regular fa-folder-open"></i>
+
+          <p>
+            Tidak ada transaksi sudah dibayar
+          </p>
+
+        </div>
+
+      `;
+    }
+
+  </script>
+
+</body>
+</html>

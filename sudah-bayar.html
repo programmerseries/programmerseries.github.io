@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Order Sudah Dibayar</title>
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:#eef2f7;
+      max-width:500px;
+      margin:auto;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    /* =========================
+    HEADER
+    ========================= */
+
+    .header{
+      background:linear-gradient(
+        135deg,
+        #0f9d58,
+        #0b7d45
+      );
+
+      color:white;
+      padding:25px 20px;
+      border-radius:25px;
+      margin-bottom:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .header h1{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      font-size:14px;
+      opacity:0.9;
+    }
+
+    /* =========================
+    INFO BOX
+    ========================= */
+
+    .info-box{
+      background:white;
+      padding:18px;
+      border-radius:20px;
+      margin-bottom:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .info-box .text h3{
+      font-size:15px;
+      color:#666;
+      margin-bottom:5px;
+    }
+
+    .info-box .text h2{
+      font-size:28px;
+      color:#0f9d58;
+    }
+
+    .info-box i{
+      font-size:40px;
+      color:#0f9d58;
+    }
+
+    /* =========================
+    ITEM ORDER
+    ========================= */
+
+    .item{
+      background:white;
+      padding:16px;
+      border-radius:18px;
+      margin-bottom:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+      border-left:6px solid #0f9d58;
+    }
+
+    .item p{
+      margin-bottom:8px;
+      color:#333;
+      font-size:14px;
+    }
+
+    /* =========================
+    STATUS
+    ========================= */
+
+    .status{
+      display:inline-block;
+      background:#e8f5e9;
+      color:#0f9d58;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    /* =========================
+    KOSONG
+    ========================= */
+
+    .kosong{
+      background:white;
+      padding:30px 20px;
+      border-radius:20px;
+      text-align:center;
+      color:#777;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .kosong i{
+      font-size:45px;
+      margin-bottom:10px;
+      color:#bbb;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+  HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <h1>
+      <i class="fa-solid fa-circle-check"></i>
+      Sudah Dibayar
+    </h1>
+
+    <p>
+      Daftar pelanggan yang sudah melakukan pembayaran
+    </p>
+
+  </div>
+
+  <!-- =========================
+  INFO TOTAL
+  ========================= -->
+
+  <div class="info-box">
+
+    <div class="text">
+
+      <h3>Total Sudah Dibayar</h3>
+
+      <h2 id="totalSudah">
+        0
+      </h2>
+
+    </div>
+
+    <i class="fa-solid fa-money-bill-wave"></i>
+
+  </div>
+
+  <!-- =========================
+  LIST ORDER
+  ========================= -->
+
+  <div id="listSudahBayar"></div>
+
+  <script>
+
+    // =========================
+    // AMBIL DATA
+    // =========================
+
+    let orderan =
+      JSON.parse(
+        localStorage.getItem("orderan")
+      ) || [];
+
+    let list =
+      document.getElementById("listSudahBayar");
+
+    let totalSudah =
+      document.getElementById("totalSudah");
+
+    let adaData = false;
+
+    let jumlahSudahBayar = 0;
+
+    // =========================
+    // LOOP DATA
+    // =========================
+
+    orderan.forEach((item)=>{
+
+      if(item.status == "sudah bayar"){
+
+        adaData = true;
+
+        jumlahSudahBayar++;
+
+        list.innerHTML += `
+
+          <div class="item">
+
+            <p>
+              <b>📅 Tanggal Order:</b>
+              ${item.tanggal}
+            </p>
+
+            <p>
+              <b>👤 Nama:</b>
+              ${item.nama}
+            </p>
+
+            <p>
+              <b>🧵 Keterangan:</b>
+              ${item.keterangan}
+            </p>
+
+            <div class="status">
+
+              Sudah Dibayar
+
+            </div>
+
+          </div>
+
+        `;
+      }
+
+    });
+
+    // =========================
+    // TOTAL
+    // =========================
+
+    totalSudah.innerHTML =
+      jumlahSudahBayar;
+
+    // =========================
+    // JIKA KOSONG
+    // =========================
+
+    if(!adaData){
+
+      list.innerHTML = `
+
+        <div class="kosong">
+
+          <i class="fa-regular fa-folder-open"></i>
+
+          <p>
+            Tidak ada order yang sudah dibayar
+          </p>
+
+        </div>
+
+      `;
+    }
+
+  </script>
+
+</body>
+</html>

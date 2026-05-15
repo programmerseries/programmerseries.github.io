@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Order Jahitan</title>
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:#eef2f7;
+      max-width:500px;
+      margin:auto;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    /* =========================
+    HEADER
+    ========================= */
+
+    .header{
+      background:linear-gradient(
+        135deg,
+        #111,
+        #2c3e50
+      );
+      color:white;
+      padding:25px 20px;
+      border-radius:25px;
+      margin-bottom:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .header h1{
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .header p{
+      opacity:0.8;
+      font-size:14px;
+    }
+
+    /* =========================
+    CARD
+    ========================= */
+
+    .card{
+      background:white;
+      padding:18px;
+      border-radius:20px;
+      margin-bottom:18px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.06);
+    }
+
+    .title{
+      font-size:16px;
+      font-weight:bold;
+      margin-bottom:15px;
+      color:#222;
+    }
+
+    /* =========================
+    INPUT
+    ========================= */
+
+    input,
+    textarea,
+    button{
+      width:100%;
+      border:none;
+      outline:none;
+      padding:14px;
+      border-radius:14px;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+
+    input,
+    textarea{
+      background:#f4f6f9;
+      border:1px solid #ddd;
+    }
+
+    textarea{
+      resize:none;
+      height:90px;
+    }
+
+    /* =========================
+    BUTTON
+    ========================= */
+
+    .btn-simpan{
+      background:linear-gradient(
+        135deg,
+        #111,
+        #333
+      );
+
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .btn-simpan:hover{
+      transform:scale(0.98);
+    }
+
+    /* =========================
+    SEARCH
+    ========================= */
+
+    .search-box{
+      position:relative;
+    }
+
+    .search-box i{
+      position:absolute;
+      top:15px;
+      left:15px;
+      color:#777;
+    }
+
+    .search-box input{
+      padding-left:45px;
+    }
+
+    /* =========================
+    ORDER ITEM
+    ========================= */
+
+    .item{
+      background:white;
+      border-left:6px solid #e53935;
+      padding:16px;
+      border-radius:18px;
+      margin-bottom:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .status{
+      display:inline-block;
+      background:#ffebee;
+      color:#e53935;
+      padding:6px 12px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:bold;
+      margin-top:10px;
+    }
+
+    .item p{
+      margin-bottom:8px;
+      color:#333;
+      font-size:14px;
+    }
+
+    /* =========================
+    BUTTON AKSI
+    ========================= */
+
+    .aksi{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+
+    .aksi button{
+      margin:0;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .edit{
+      background:orange;
+    }
+
+    .hapus{
+      background:#111;
+    }
+
+    /* =========================
+    KOSONG
+    ========================= */
+
+    .kosong{
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      color:#777;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .kosong i{
+      font-size:40px;
+      margin-bottom:10px;
+      color:#bbb;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+  HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <h1>
+      <i class="fa-solid fa-scissors"></i>
+      POS Jahitan
+    </h1>
+
+    <p>
+      Kelola order jahitan dengan mudah
+    </p>
+
+  </div>
+
+  <!-- =========================
+  FORM INPUT
+  ========================= -->
+
+  <div class="card">
+
+    <div class="title">
+      Tambah Order Baru
+    </div>
+
+    <input
+      type="hidden"
+      id="editIndex">
+
+    <input
+      type="date"
+      id="tanggal">
+
+    <input
+      type="text"
+      id="nama"
+      placeholder="Nama pelanggan">
+
+    <textarea
+      id="keterangan"
+      placeholder="Keterangan jahitan"></textarea>
+
+    <button
+      class="btn-simpan"
+      onclick="simpanOrder()">
+
+      <i class="fa-solid fa-floppy-disk"></i>
+      Simpan Order
+
+    </button>
+
+  </div>
+
+  <!-- =========================
+  SEARCH
+  ========================= -->
+
+  <div class="card">
+
+    <div class="title">
+      Cari Pelanggan
+    </div>
+
+    <div class="search-box">
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        id="cariNama"
+        placeholder="Cari nama pelanggan..."
+        onkeyup="tampilkanOrder()">
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+  LIST ORDER
+  ========================= -->
+
+  <div id="listOrder"></div>
+
+  <script>
+
+    // =========================
+    // DATA ORDER
+    // =========================
+
+    let orderan =
+      JSON.parse(
+        localStorage.getItem("orderan")
+      ) || [];
+
+    tampilkanOrder();
+
+    // =========================
+    // SIMPAN ORDER
+    // =========================
+
+    function simpanOrder(){
+
+      let tanggal =
+        document.getElementById("tanggal").value;
+
+      let nama =
+        document.getElementById("nama").value;
+
+      let keterangan =
+        document.getElementById("keterangan").value;
+
+      let editIndex =
+        document.getElementById("editIndex").value;
+
+      if(tanggal === "" || nama === ""){
+
+        alert("Isi data terlebih dahulu");
+
+        return;
+      }
+
+      let data = {
+        tanggal,
+        nama,
+        keterangan,
+        status:"belum bayar"
+      };
+
+      // EDIT DATA
+
+      if(editIndex !== ""){
+
+        data.status =
+          orderan[editIndex].status;
+
+        orderan[editIndex] = data;
+
+      }else{
+
+        // TAMBAH DATA
+
+        orderan.push(data);
+      }
+
+      // SIMPAN
+
+      localStorage.setItem(
+        "orderan",
+        JSON.stringify(orderan)
+      );
+
+      // RESET
+
+      resetForm();
+
+      tampilkanOrder();
+
+      alert("Order berhasil disimpan");
+    }
+
+    // =========================
+    // TAMPILKAN ORDER
+    // =========================
+
+    function tampilkanOrder(){
+
+      let list =
+        document.getElementById("listOrder");
+
+      let keyword =
+        document.getElementById("cariNama")
+        .value
+        .toLowerCase();
+
+      list.innerHTML = "";
+
+      let adaData = false;
+
+      orderan.forEach((item,index)=>{
+
+        let cocok =
+          item.nama
+          .toLowerCase()
+          .includes(keyword);
+
+        if(
+          item.status === "belum bayar"
+          && cocok
+        ){
+
+          adaData = true;
+
+          list.innerHTML += `
+
+            <div class="item">
+
+              <p>
+                <b>📅 Tanggal:</b>
+                ${item.tanggal}
+              </p>
+
+              <p>
+                <b>👤 Nama:</b>
+                ${item.nama}
+              </p>
+
+              <p>
+                <b>🧵 Keterangan:</b>
+                ${item.keterangan}
+              </p>
+
+              <div class="status">
+
+                Belum Dibayar
+
+              </div>
+
+              <div class="aksi">
+
+                <button
+                  class="edit"
+                  onclick="editOrder(${index})">
+
+                  Edit
+
+                </button>
+
+                <button
+                  class="hapus"
+                  onclick="hapusOrder(${index})">
+
+                  Hapus
+
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+        }
+
+      });
+
+      // =========================
+      // JIKA KOSONG
+      // =========================
+
+      if(!adaData){
+
+        list.innerHTML = `
+
+          <div class="kosong">
+
+            <i class="fa-regular fa-folder-open"></i>
+
+            <p>
+              Tidak ada order ditemukan
+            </p>
+
+          </div>
+
+        `;
+      }
+    }
+
+    // =========================
+    // EDIT
+    // =========================
+
+    function editOrder(index){
+
+      let item = orderan[index];
+
+      document.getElementById("tanggal").value =
+        item.tanggal;
+
+      document.getElementById("nama").value =
+        item.nama;
+
+      document.getElementById("keterangan").value =
+        item.keterangan;
+
+      document.getElementById("editIndex").value =
+        index;
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+    }
+
+    // =========================
+    // HAPUS
+    // =========================
+
+    function hapusOrder(index){
+
+      let yakin =
+        confirm(
+          "Yakin ingin menghapus order ini?"
+        );
+
+      if(yakin){
+
+        orderan.splice(index,1);
+
+        localStorage.setItem(
+          "orderan",
+          JSON.stringify(orderan)
+        );
+
+        tampilkanOrder();
+      }
+    }
+
+    // =========================
+    // RESET FORM
+    // =========================
+
+    function resetForm(){
+
+      document.getElementById("tanggal").value = "";
+
+      document.getElementById("nama").value = "";
+
+      document.getElementById("keterangan").value = "";
+
+      document.getElementById("editIndex").value = "";
+    }
+
+  </script>
+
+</body>
+</html>
